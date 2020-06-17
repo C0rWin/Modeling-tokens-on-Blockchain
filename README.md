@@ -12,12 +12,16 @@ Steps for installing the environnement:
   - Enable icon theme: select File -> Preferences -> Fill icon theme 
 3) Install truffle : npm install -g truffle (in the regular command prompt)
 4) Create a new directory for the truffle project:
+```
       mkdir Modeling-tokens-on-Blockchain
       cd Modeling-tokens-on-Blockchain
       truffle init 
+```      
 5) Install OpenZeppelin: it's a library for writing smart contracts on ethereum
+```
       npm init -y
       npm install -E openzeppelin-solidity
+```      
 5) Open the directory in Visual Studio with the command
       code .
 You can see several directories:
@@ -31,28 +35,42 @@ Steps for deploying a new smart contract:
 3) Add a migration file that will deploy the MetaCoin, named 2_deploy_contracts.js and define there the deployment of the MetaCoin(the index is important because it defines in which order the compiler should look at the files) 
 4) Run the test with the command "truffle test" (in the command prompt). This command will compile the files and run the tests that are written for the MetaCoin
 5) Now we can deploy the smart contracts using ganache. First install ganache with the following command:
+```
     npm install -g ganache-cli
+```
 6) Open a truffle console with the command
+```
     truffle develop 
+```    
 7) For convenience you can open a second tab where you can see the log of the transactions. Run the command 
+```
     truffle develop --log 
+```    
 8) In the first tab use the command "migrate" to deploy the contracts
 9) You can see the transactions cache, the contract address, the account that it came from, the balance of that account...
 
 
 # Using ganache:
 Migrate all the contracts to the ganache network with:
+```
 truffle migrate --compile-all --reset --network ganache ('ganahe' is the name of the network in the truffle-config.js)
+```
 Lunch a ganache console:
+```
 truffle console --network ganache 
+```
 
 ## Example how to use the ganache console:
  
-1) Instantiate a token OwnershipToken with a balance of 1 to the msgSender (msgSender is what's mentioned in the brackets: from accounts[9]): 
+1) Instantiate a token OwnershipToken with a balance of 1 to the msgSender (msgSender is what's mentioned in the brackets: 
+```
+from accounts[9]): 
 let Instance = await OwnershipToken.new("nam", "sym", {from:accounts[9]})
-2) let accounts = await web3.eth.getAccounts()
+```
+2) `let accounts = await web3.eth.getAccounts()`
 
 3) to get balance of a certain account:
+```
  let balance = await Instance.getBalance(accounts[0]) 
 
 let rental = await SmartRentalToken.new("nam", "symb", {from:accounts[5]})
@@ -75,9 +93,10 @@ renter.balanceOf(accounts[6])
 owner.sell(accounts[4], {from:accounts[6]})
 owner.balanceOf(accounts[6]) 
 owner.balanceOf(accounts[4]) 
+```
 
-
-// NEW SIMULATION
+### NEW SIMULATION
+```
 // A=6, B=7, C=8, D=9
 let accounts = await web3.eth.getAccounts()
 let owner = await SmartOwnershipToken.new("nam", "sym", {from:accounts[6]})
@@ -105,8 +124,10 @@ rent.transfer(accounts[7], 1, {from:accounts[8]})
 rent.transfer(accounts[6], 1, {from:accounts[6]})
 owner.transfer(accounts[9], 1, {from:accounts[6]})
 owner.balanceOf(accounts[9]) 
+```
 
-//DYNAMIC LINKING EXTENSION:
+### DYNAMIC LINKING EXTENSION:
+```
 let owner = await SmartOwnershipToken.new("nam", "symb")
 let ext = await OwnershipExtension.new()
 let methodSignature = ""
@@ -141,9 +162,9 @@ bal0 = await renterToken.balanceOf(accounts[3]) //should be 1
 //Transfer fonctionne :
 a.transfer(accounts[3],1)
 a.balanceOf(accounts[3]) //works fine!
+```
 
-//CONVENTION: a variable a of an Extension named B in the mapping extensionsData is stored under the string "B_a"
-
+*CONVENTION*: a variable a of an Extension named B in the mapping extensionsData is stored under the string "B_a"
 
 use of string utils from:
 https://github.com/ethereum/dapp-bin/blob/master/library/stringUtils.sol
